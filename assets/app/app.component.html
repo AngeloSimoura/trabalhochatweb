@@ -1,0 +1,96 @@
+<h1>Projeto</h1>
+
+<strong>{{idade}}</strong>
+<label> {{nome}}</label>  
+<br/><br/>  
+<button (click)="onMudaMostrarElemento()">Click aqui novo Estudo</button>
+{{mostrarElemento}}
+<p *ngIf="mostrarElemento">
+    {{mostrarElemento ? 'Mostrado|'+mostrarElemento : 'Removido|'+mostrarElement}}
+</p>
+<button (click)="onMudaMostrarElemento()">Click aqui DIV</button>
+{{mostrarElemento}}
+<div *ngIf="mostrarElemento">
+    <p>Cade a div que estava aqui com um monte de elementos</p>
+    <select id="cboCidades">
+        <option value=""></option>
+        <option value="vix">Vitória</option>
+        <option value="vv">Vila Velha</option>
+    </select>
+    <button>Click aqui</button>
+</div> 
+<button (click)="onMudaMostrarElemento()">Click aqui com then e else</button>
+{{mostrarElemento}}
+<p *ngIf="mostrarElemento; then thenBlockMy else elseBlockMy"> </p>
+    <ng-template #thenBlockMy><p>{{mostrarElemento}} - Mostrando do Then...</p></ng-template>
+    <ng-template #elseBlockMy><p>{{mostrarElemento}} - Escondido do Else...</p></ng-template>
+
+<p></p>
+<button (click)="valorNgSwitch=1">selecione - 1</button>
+<button (click)="valorNgSwitch=2">selecione - 2</button>
+<button (click)="valorNgSwitch=3">selecione - 3</button>
+<h5>Você selecionou: {{valorNgSwitch}}</h5>
+<div [ngSwitch]="valorNgSwitch">
+    <div *ngSwitchCase="1">1. Template - <b>{{valorNgSwitch}}</b></div>
+    <div *ngSwitchCase="2">2. Template - <b>{{valorNgSwitch}}</b></div>
+    <div *ngSwitchCase="3">3. Template - <b>{{valorNgSwitch}}</b></div>
+    <div *ngSwitchDefault>DefaulTemplate</div>
+</div>
+<p></p>
+<input type="text" [(ngModel)]="nomeNgSwitch">
+{{nomeNgSwitch}}
+<ul [ngSwitch]="nomeNgSwitch">
+    <li *ngSwitchCase="'Angelo'">Bom dia Angelo</li>
+    <li *ngSwitchCase="'Silva'">Boa tarde Silva</li>
+    <li *ngSwitchCase="'Simoura'">Boa noite Simoura</li>
+    <li *ngSwitchDefault>Bye Bye</li>
+</ul>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2"> 
+            <input type="text" [(ngModel)] ="message.conteudo">
+            <input type="text" [(ngModel)] ="message.usuario">
+            <article class="panel panel-default">
+                <div class="panel-body">
+                    {{message.conteudo}}
+                </div>
+                <footer class="panel-footer">
+                    <div class="author">
+                        {{message.usuario}}
+                    </div>
+                </footer>
+            </article>          
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <app-header></app-header>
+    <hr/>
+    <router-outlet></router-outlet>
+    <!-- <app-messages></app-messages> -->
+</div>
+
+  <!--  <div class="row">
+        <strong class="col-md-8 col-md-offset-2"> ==Após Restruturação</strong>
+        <app-message-input></app-message-input>
+    </div>
+    <div class="row">
+        <app-message-list></app-message-list>
+        <strong class="col-md-8 col-md-offset-2"> ==Após Restruturação</strong>
+    </div>
+
+
+
+
+<div class="col-md-8 col-md-offset-2">
+    <app-message [messageVarClasse] ="messageBinding"></app-message>
+    <app-message [messageVarClasse]="messageBinding" 
+                 (editClicked_MessageMetodoClasse)="messageBinding.content = $event"
+                 *ngFor= "let msg of messageS">
+    </app-message>
+</div>-->
+

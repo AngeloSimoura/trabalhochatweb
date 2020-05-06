@@ -1,0 +1,2 @@
+ C:"\Program Files"\MongoDB\Server\4.2\bin\mongod.exe --dbpath C:\Users\Angelo\Documents\"Programação Avançada Web"\Projeto_Angelo\data\db 
+ C:"\Program Files"\MongoDB\Server\4.2\bin\mongo.exe
