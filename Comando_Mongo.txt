@@ -1,0 +1,21 @@
+db.alunos.insertMany([ {login: "carolina.alves", nome:"Carolina" , sobrenome:"Alves"},
+{login: "joao.paulo", nome:"Joao" , sobrenome:"Paulo"},
+{login: "rafael.borges", nome:"Rafael" , sobrenome:"Borges"}])
+
+db.livros.insertMany([{codlivro:"00001",titulo:"O Principe",autor:"Nicolau Maquiavel"},
+{codlivro:"00002",titulo:"A arte da guerra",autor:"Sun Tzu"},
+{codlivro:"00003",titulo:"A Republica",autor:"Platao"}])
+
+
+db.livros.updateMany({codlivro:"00001"},{$set: {aluguel:{login:"carolina.alves",periodo:{inicio:"2020-02-26",fim:"2020-03-12"}}}})
+
+db.livros.find({aluguel:{$exists: true}})
+
+db.livros.find({'aluguel.login':"carolina.alves"},{autor:1 ,titulo:1,'aluguel.periodo.fim':1})
+
+db.alunos.find({login: db.livros.find({titulo:"O Principe"}).next().aluguel.login})
+
+var myCursor = db.livros.find({titulo: "O Principe"}, {'aluguel.login': 1})
+var myDoc = myCursor.next()
+db.alunos.find({login: myDoc.aluguel.login})
+print(tojson(myDoc))
