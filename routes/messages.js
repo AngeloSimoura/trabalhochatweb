@@ -66,4 +66,34 @@ router.delete('/:id',function (req,res,next){
     });
 }); 
 
+router.patch(':/id',function(req,res,next){
+    Message.findById(req.params.id,function(err,resultMsgRecuperada){
+        if(err){
+            return res.status(500).json({
+                myErroTitle: 'Um erro aconteceu na buscar a msg pelo ID',
+                myError : err
+            });
+        }
+        if(!resultMsgRecuperada){
+            return res.status(500).json({
+                myErroTitle: 'Não encontrou a msg',
+                myError : {info: 'Não encontrou a msg com o ID' +req.params.id }
+            });
+        }
+        resultMsgRecuperada.content = req.body.content;
+        resultMsgRecuperada.save(function (err, resultMsgAlterada){
+            if(err){
+                return res.status(500).json({
+                    myErroTitle: 'Um erro aconteceu na hora de alterar a msg',
+                    myError : err
+                });
+            }
+            res.status(200).json({
+                myMsgSucess: "Mensagem atualizada com sucesso",
+                objMessageAtualizado: resultMsgAlterada
+            });
+        });
+    });
+});
+
 module.exports = router;

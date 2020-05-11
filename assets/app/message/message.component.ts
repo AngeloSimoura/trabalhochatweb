@@ -22,6 +22,7 @@ import { MessageService } from "./message.services";
 })
 export class MessageComponent{
     constructor(private messageServiceObj: MessageService){}
+    
     onDeleteService(){
         this.messageServiceObj.deleteMessage(this.messageVarClasse)
         .subscribe(
@@ -39,9 +40,8 @@ export class MessageComponent{
     @Input() messageVarClasse : Message = new Message("", "");
     //@Input('inputMessage') messageVarClasseAlias : Message = new Message("", "");
 
-    onEdit(){
-        alert("Tá Funcionando!!!");
-        this.editClicked_MessageMetodoClasse.emit("Texto veio da mensagem (child) para o app (pai)");
+    onEditService(){
+        this.messageServiceObj.editMessage(this.messageVarClasse);
     }
 
     @Output() editClicked_MessageMetodoClasse = new EventEmitter<string>();

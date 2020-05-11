@@ -6,11 +6,12 @@
             <input type="text" 
                    id="myContent" 
                    class="form-control"
-                   ngModel
+                   [ngModel]= "messageLoad?.content"
                    name="myContentngForm"
                    required oninvalid = "this.setCustomValidity('Campo Vazio')" oninput="setCustomValidity('')">
         </div>
         <button type="submit" class="btn btn-primary">Salvar minha mensagem</button>
+        <button type="button" class= "btn btn-danger" (click)="onClear(refLocalForm)">Cancelar</button>
     </form>
 </div>
 

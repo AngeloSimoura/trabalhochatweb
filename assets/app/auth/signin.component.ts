@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UserService } from "./user.services";
 
 
 @Component({
@@ -8,6 +9,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 
 export class SigninComponent{
+
+
     myForm : FormGroup;
 
     onSubmit(){
