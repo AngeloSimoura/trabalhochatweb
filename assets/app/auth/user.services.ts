@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserService {
-    private UserService: User;
+    private userService: User;
     constructor(private http: Http){}
 
     addUser(user: User){

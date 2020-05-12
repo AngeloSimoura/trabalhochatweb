@@ -9,6 +9,15 @@ var schema = new Schema({
     email: {type: String, required: true,unique: true}
 });
 
+module.exports.createUser = function(newUser, callback){
+	bcrypt.genSalt(10, function(err, salt) {
+    	bcrypt.hash(newUser.password, salt, function(err, hash) {
+   			newUser.password = hash;
+   			newUser.save(callback);
+    	});
+	});
+}
+
 schema.plugin(mongooseUniqueValidator);
 
 module.exports = mongoose.model('Registro-user',schema);
