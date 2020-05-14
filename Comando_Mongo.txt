@@ -19,3 +19,6 @@ var myCursor = db.livros.find({titulo: "O Principe"}, {'aluguel.login': 1})
 var myDoc = myCursor.next()
 db.alunos.find({login: myDoc.aluguel.login})
 print(tojson(myDoc))
+
+
+db.users.find({"email": "angelosimouraps4@gmail.com", "password":"ada"}) 

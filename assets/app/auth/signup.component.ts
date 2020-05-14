@@ -19,7 +19,11 @@ export class SignupComponent implements OnInit{
         //this.myForm.reset();
         const userAux = new User(this.myForm.value.emailTS,this.myForm.value.passwordTS,this.myForm.value.firstNameTS,this.myForm.value.lastNameTS);
         console.log(userAux);
-        this.userService.addUser(userAux);
+        this.userService.addUser(userAux)
+            .subscribe(
+                dadosSucesso => console.log(dadosSucesso),
+                dadosErro => console.log(dadosErro)
+            );
         
     }
 

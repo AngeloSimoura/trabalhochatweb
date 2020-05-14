@@ -12,10 +12,11 @@ router.post('/',function (req,res,next){
         email: req.body.email,
         password: req.body.password
     });
-    console.log("aquiii");
+    console.log(user);
 
     user.save(function (err, result){
         if(err){
+            console.log('500');
             return res.status(500).json({
                 myErroTitle: 'Um erro aconteceu na hora de salvar o usuário',
                 myError : err
@@ -27,6 +28,22 @@ router.post('/',function (req,res,next){
         });
     });
 });
+
+/*router.get('/:email/:password',function (req,res,next){
+    User.find(req.params.email,req.params.password,function (err, result))
+        .exec(function(err,result){
+            if(err){
+                return res.status(500).json({
+                    myErroTitle: 'Um erro aconteceu na hora de buscar o usuário',
+                    myError : err
+                });
+            }
+            res.status(200).json({
+                myMsgSucess: "Usuário recuperada com sucesso",
+                objSMessageSRecuperadoS: result
+            });                
+        });
+});*/
 
 /*router.post('/',function(req, res, next) {
     let firstName=  req.body.firstName;

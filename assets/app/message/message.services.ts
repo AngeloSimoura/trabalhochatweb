@@ -47,7 +47,7 @@ export class MessageService {
 
     deleteMessage(message: Message){
         this.messageSService.splice(this.messageSService.indexOf(message), 1);
-        return this.http.delete('http://localhost:3000/message'+message.messageID)
+        return this.http.delete('http://localhost:3000/message/'+message.messageID)
             .map((responseRecebida: Response) => responseRecebida.json())
             .catch((errorRecebido: Response) => Observable.throw(errorRecebido.json()));
     }
@@ -59,7 +59,7 @@ export class MessageService {
     updateMessage(message:Message){
         const bodyReq = JSON.stringify(message);
         const myHeaders = new Headers({'Content-Type': 'application/json'});
-        return this.http.patch('http://localhost:3000/message'+message.messageID,bodyReq,{ headers: myHeaders})
+        return this.http.patch('http://localhost:3000/message/'+message.messageID,bodyReq,{ headers: myHeaders})
             .map((responseRecebida: Response) => responseRecebida.json())
             .catch((errorRecebido: Response) => Observable.throw(errorRecebido.json()));
     }

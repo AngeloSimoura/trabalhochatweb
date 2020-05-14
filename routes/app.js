@@ -20,7 +20,7 @@ router.post('/registro-usuario-salvar', function (req, res, next) {
     });
     registroObject.save();
 
-    res.redirect('/registro-usuario-busca');
+    //res.redirect('/registro-usuario-busca');
 });
 
 router.get('/registro-usuario-salvar', function (req, res, next) {

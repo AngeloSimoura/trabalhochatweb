@@ -66,8 +66,8 @@ router.delete('/:id',function (req,res,next){
     });
 }); 
 
-router.patch(':/id',function(req,res,next){
-    Message.findById(req.params.id,function(err,resultMsgRecuperada){
+router.patch('/:id',function(req,res,next){
+    Message.findById(req.params.id, function(err,resultMsgRecuperada){
         if(err){
             return res.status(500).json({
                 myErroTitle: 'Um erro aconteceu na buscar a msg pelo ID',

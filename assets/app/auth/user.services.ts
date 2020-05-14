@@ -19,4 +19,11 @@ export class UserService {
             .catch((errorRecebido: Response) => Observable.throw(errorRecebido.json()));
            
     }
+
+    getUser(email: string, password: string){
+        //return this.messageSService;
+        return this.http.get('http://localhost:3000/user/'+email+'/'+password)
+            .map((responseRecebida: Response)=> responseRecebida.json())
+            .catch((errorRecebido: Response) => Observable.throw(errorRecebido.json()));
+    }
 }
