@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport');
+const passport = require("./passport/setup");
 
 var mongoose = require('mongoose');
 
@@ -48,6 +48,9 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     next();
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/message',messageRoutes);
 app.use('/user', userRoutes);

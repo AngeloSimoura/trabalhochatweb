@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "./user.services";
 import { User } from './user.model';
+var bcrypt = require('bcryptjs');
 
 @Component({
     selector: 'app-signup',
@@ -16,15 +17,13 @@ export class SignupComponent implements OnInit{
 
     onSubmit(){
         console.log(this.myForm);
-        //this.myForm.reset();
         const userAux = new User(this.myForm.value.emailTS,this.myForm.value.passwordTS,this.myForm.value.firstNameTS,this.myForm.value.lastNameTS);
         console.log(userAux);
         this.userService.addUser(userAux)
-            .subscribe(
-                dadosSucesso => console.log(dadosSucesso),
-                dadosErro => console.log(dadosErro)
-            );
-        
+        .subscribe(
+            dadosSucesso => console.log(dadosSucesso),
+            dadosErro => {console.log(dadosErro), alert('Este email já foi cadastrado')}
+        );    
     }
 
     ngOnInit(){

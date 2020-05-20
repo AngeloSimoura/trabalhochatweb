@@ -14,14 +14,15 @@ export class MessageService {
     
     addMessage(message: Message){
         //this.messageSService.push(message);
-        console.log(this.messageSService);        
+        console.log(this.messageSService);    
+        console.log(message.userID);    
         const bodyReq = JSON.stringify(message);
         const myHeaders = new Headers({'Content-Type': 'application/json'});
         return this.http.post('http://localhost:3000/message',bodyReq, {headers: myHeaders})
             //.map((responseRecebida: Response) => responseRecebida.json())
             .map((responseRecebida: Response) => {
                 const aux = responseRecebida.json();
-                const newObjMessage = new Message(aux.objMessageSave.content,"Angelo",aux.objMessageSave._id,null);
+                const newObjMessage = new Message(aux.objMessageSave.content,sessionStorage.getItem('username'),aux.objMessageSave._id,sessionStorage.getItem('id'));
                 this.messageSService.push(newObjMessage);
                 return(newObjMessage);
             })
@@ -37,7 +38,7 @@ export class MessageService {
                 let transformedCastMessagesModelFrontEnd: Message[] = [];
                 for(let msg of messageSResponseRecebida){
                     transformedCastMessagesModelFrontEnd.push(
-                        new Message(msg.content,'TesteAngelo',msg._id,null));
+                        new Message(msg.content,msg.username, msg._id,msg.userID));
                 }
                 this.messageSService = transformedCastMessagesModelFrontEnd;
                 return transformedCastMessagesModelFrontEnd;

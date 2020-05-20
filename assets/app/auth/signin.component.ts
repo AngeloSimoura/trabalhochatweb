@@ -16,11 +16,15 @@ export class SigninComponent{
     myForm : FormGroup;
 
     onSubmit(){        
-        console.log(this.myForm);        
+        console.log(this.myForm);     
         this.userService.getUser(this.myForm.value.emailTS, this.myForm.value.passwordTS)
             .subscribe(
-                dadosSucesso => console.log(dadosSucesso),
-                dadosErro => console.log(dadosErro)
+                (dadosSucesso: User) => {
+                    console.log(dadosSucesso);
+                    sessionStorage.setItem('id',dadosSucesso.userID);
+                    sessionStorage.setItem('username',dadosSucesso.firstName+dadosSucesso.lastName)
+                },
+                dadosErro =>{ console.log(dadosErro)}
             );
         this.myForm.reset();
     }
@@ -33,5 +37,5 @@ export class SigninComponent{
             ]),
             passwordTS: new FormControl(null, Validators.required)
         }); 
-    }  
+    }
 }

@@ -24,4 +24,9 @@ module.exports.createUser = function(newUser, callback){
 	});
 }
 
+module.exports.getUserByUsername = function(email, callback){
+	var query = {email: email};
+	User.findOne(query, callback);
+}
+
 module.exports = mongoose.model('User',schema);

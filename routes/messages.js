@@ -20,9 +20,13 @@ router.get('/',function (req,res,next){
 });
 
 router.post('/',function (req,res,next){
-    var message = new Message({
-        content: req.body.content
+    var userID = req.body.userID;
+    console.log(userID);
+    let message = new Message({
+        content: req.body.content,
+        user: userID
     });
+    console.log("!"+message);
     message.save(function (err, result){
          if(err){
              return res.status(500).json({

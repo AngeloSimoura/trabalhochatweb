@@ -15,7 +15,8 @@ export class MessageInputComponent implements OnInit{
     messageLoad: Message;
 
     onSave(textoConsole: string){
-        const messageAux = new Message(textoConsole,'Angelo');
+        const messageAux = new Message(textoConsole,sessionStorage.getItem('username'),null,sessionStorage.getItem('id'));
+        console.log(messageAux.userID);
         this.messageService.addMessage(messageAux);
         console.log(textoConsole);
     }
@@ -31,7 +32,8 @@ export class MessageInputComponent implements OnInit{
             this.messageLoad=null;
         }
         else{
-            const messageAux = new Message(form.value.myContentngForm,'AnGelo');
+
+            const messageAux = new Message(form.value.myContentngForm,sessionStorage.getItem('username'),null,sessionStorage.getItem('id'));
             this.messageService.addMessage(messageAux)
                 .subscribe(
                     dadosSucesso => console.log(dadosSucesso),
