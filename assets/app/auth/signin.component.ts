@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "./user.services";
 import { User } from './user.model';
+import {Router} from "@angular/router"
 
 
 @Component({
@@ -11,9 +12,11 @@ import { User } from './user.model';
 })
 
 export class SigninComponent{
-    constructor(private userService: UserService){} 
+    constructor(private userService: UserService,private router: Router){} 
 
     myForm : FormGroup;
+    verificador: boolean = true;
+    hide: true;
 
     onSubmit(){        
         console.log(this.myForm);     
@@ -22,11 +25,21 @@ export class SigninComponent{
                 (dadosSucesso: User) => {
                     console.log(dadosSucesso);
                     sessionStorage.setItem('id',dadosSucesso.userID);
-                    sessionStorage.setItem('username',dadosSucesso.firstName+dadosSucesso.lastName)
+                    sessionStorage.setItem('username',dadosSucesso.firstName+dadosSucesso.lastName);
+                    this.verificaLogin(this.verificador);
                 },
-                dadosErro =>{ console.log(dadosErro)}
+                dadosErro =>{ console.log(dadosErro),this.verificador=false,console.log(this.verificador),this.verificaLogin(this.verificador)}
             );
-        this.myForm.reset();
+    }
+
+    verificaLogin(verificador: boolean){
+        if(verificador){
+            console.log('Entrei no IF');
+            this.myForm.reset();        
+            this.router.navigate(['/mensagens']);
+        }
+        else
+            alert("Email e/ou senha incorretos");
     }
 
     ngOnInit(){
@@ -36,6 +49,7 @@ export class SigninComponent{
                 Validators.pattern("[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+")
             ]),
             passwordTS: new FormControl(null, Validators.required)
-        }); 
+        });
+         
     }
 }

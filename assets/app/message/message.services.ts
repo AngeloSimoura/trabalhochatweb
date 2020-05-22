@@ -23,7 +23,7 @@ export class MessageService {
             .map((responseRecebida: Response) => {
                 const aux = responseRecebida.json();
                 const newObjMessage = new Message(aux.objMessageSave.content,sessionStorage.getItem('username'),aux.objMessageSave._id,sessionStorage.getItem('id'));
-                this.messageSService.push(newObjMessage);
+                this.messageSService.unshift(newObjMessage);
                 return(newObjMessage);
             })
             .catch((errorRecebido: Response) => Observable.throw(errorRecebido.json()));
@@ -35,10 +35,11 @@ export class MessageService {
             .map((responseRecebida: Response)=>{
                 const responseEmJSON = responseRecebida.json();
                 const messageSResponseRecebida = responseEmJSON.objSMessageSRecuperadoS;
+                console.log(messageSResponseRecebida);
                 let transformedCastMessagesModelFrontEnd: Message[] = [];
-                for(let msg of messageSResponseRecebida){
+                for (let i = messageSResponseRecebida.length - 1; i >=0 ; i--) {
                     transformedCastMessagesModelFrontEnd.push(
-                        new Message(msg.content,msg.username, msg._id,msg.userID));
+                        new Message(messageSResponseRecebida[i].content,messageSResponseRecebida[i].teste.firstName+messageSResponseRecebida[i].teste.lastName, messageSResponseRecebida[i]._id,messageSResponseRecebida[i].teste._id));
                 }
                 this.messageSService = transformedCastMessagesModelFrontEnd;
                 return transformedCastMessagesModelFrontEnd;

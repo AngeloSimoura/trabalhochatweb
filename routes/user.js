@@ -38,15 +38,25 @@ router.post('/login',function (req,res,next){
     User.findOne({email: emailR},function(err,documents){
         console.log(documents);
         if(err){
-            console.log(err);
             return res.status(500).json({
                 myErroTitle: 'Um erro aconteceu na hora de buscar o usuário',
                 myError : err
             });
         }
+        if(!documents){
+            return res.status(500).json({
+                myErroTitle: 'Não encontrou o usuário',
+                myError : {info: 'Não encontrou o usuário com o email' +emailR }
+            });
+        }
         var passwordT = documents.password;
-        if(passwordT != req.body.passwordT)
-            console.log('Senha incorreta!');
+        console.log(passwordT);
+        if(passwordT != req.body.passwordT){
+            return res.status(500).json({
+                myErroTitle: 'Senha incorreta',
+                myError : {info: 'Senha digitada incorretamente' +emailR }
+            });
+        }
         else{
             console.log('Senha correta!');
             res.status(200).json({

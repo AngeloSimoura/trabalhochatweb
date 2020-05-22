@@ -12,7 +12,8 @@ import { myrouting } from './app.routing';
 import { SigninComponent } from './auth/signin.component';
 import { SignupComponent } from './auth/signup.component';
 import { LogoutComponent } from './auth/logout.component';
-import { HttpModule } from '@angular/http'
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
     declarations: [

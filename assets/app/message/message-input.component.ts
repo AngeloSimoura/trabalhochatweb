@@ -22,26 +22,31 @@ export class MessageInputComponent implements OnInit{
     }
 
     onSubmit(form: NgForm){
-        if(this.messageLoad){
-            this.messageLoad.content = form.value.myContentngForm;
-            this.messageService.updateMessage(this.messageLoad)
-                .subscribe(
-                    dadosSucesso => console.log(dadosSucesso),
-                    dadosErro => console.log(dadosErro)
-                );
-            this.messageLoad=null;
-        }
+        if(sessionStorage.getItem('id')==null)
+            alert("É necessário estar logado para enviar uma mensagem!");
         else{
+            if(this.messageLoad){
+                this.messageLoad.content = form.value.myContentngForm;
+                this.messageService.updateMessage(this.messageLoad)
+                    .subscribe(
+                        dadosSucesso => console.log(dadosSucesso),
+                        dadosErro => console.log(dadosErro)
+                    );
+                this.messageLoad=null;
+            }
+            else{
 
-            const messageAux = new Message(form.value.myContentngForm,sessionStorage.getItem('username'),null,sessionStorage.getItem('id'));
-            this.messageService.addMessage(messageAux)
-                .subscribe(
-                    dadosSucesso => console.log(dadosSucesso),
-                    dadosErro => console.log(dadosErro)
-                );
-            console.log(form);
-            form.resetForm();
+                const messageAux = new Message(form.value.myContentngForm,sessionStorage.getItem('username'),null,sessionStorage.getItem('id'));
+                this.messageService.addMessage(messageAux)
+                    .subscribe(
+                        dadosSucesso => console.log(dadosSucesso),
+                        dadosErro => console.log(dadosErro)
+                    );
+                console.log(form);
+                form.resetForm();
+            }
         }
+
     }
 
     ngOnInit(){

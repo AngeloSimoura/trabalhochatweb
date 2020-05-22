@@ -4,7 +4,7 @@ var router = express.Router();
 var Message = require('../models/message.js');
 
 router.get('/',function (req,res,next){
-    Message.find()
+    Message.aggregate([{$lookup:{from: "users",localField: "user",foreignField: "_id",as:"teste"}},{$unwind: "$teste"},{$project:{"_id":1,"content":1,"teste._id":1,"teste.firstName":1,"teste.lastName":1}}])
         .exec(function(err,result){
             if(err){
                 return res.status(500).json({
@@ -12,10 +12,12 @@ router.get('/',function (req,res,next){
                     myError : err
                 });
             }
-            res.status(200).json({
-                myMsgSucess: "Mensagem recuperada com sucesso",
-                objSMessageSRecuperadoS: result
-            });                
+            else{
+                res.status(200).json({
+                    myMsgSucess: "Mensagem recuperada com sucesso",
+                    objSMessageSRecuperadoS: result
+                });
+            }             
         });
 });
 

@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "./user.services";
 import { User } from './user.model';
+import {Router} from "@angular/router"
 var bcrypt = require('bcryptjs');
+
 
 @Component({
     selector: 'app-signup',
@@ -11,9 +13,10 @@ var bcrypt = require('bcryptjs');
 })
 
 export class SignupComponent implements OnInit{
-    constructor(private userService: UserService){}   
+    constructor(private userService: UserService,private router: Router){}   
 
     myForm : FormGroup;
+    verificador: boolean = true;
 
     onSubmit(){
         console.log(this.myForm);
@@ -21,9 +24,21 @@ export class SignupComponent implements OnInit{
         console.log(userAux);
         this.userService.addUser(userAux)
         .subscribe(
-            dadosSucesso => console.log(dadosSucesso),
-            dadosErro => {console.log(dadosErro), alert('Este email já foi cadastrado')}
-        );    
+            dadosSucesso => {console.log(dadosSucesso.objUserSave),this.verificaSignup(this.verificador)
+                sessionStorage.setItem('id',dadosSucesso.objUserSave._id),
+                sessionStorage.setItem('username',dadosSucesso.objUserSave.firstName+dadosSucesso.objUserSave.lastName)},
+            dadosErro => {console.log(dadosErro),this.verificador=false,this.verificaSignup(this.verificador)}
+        );
+    }
+
+    verificaSignup(verificador: boolean){
+        if(verificador){
+            this.myForm.reset();        
+            this.router.navigate(['/mensagens']);
+            
+        }
+        else
+            alert('Este email já foi cadastrado')
     }
 
     ngOnInit(){

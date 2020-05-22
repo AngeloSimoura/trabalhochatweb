@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 import { Message } from "./message.model";
 import { MessageService } from "./message.services";
 
@@ -20,15 +20,27 @@ import { MessageService } from "./message.services";
         }
     `]
 })
-export class MessageComponent{
+export class MessageComponent implements OnInit{
     constructor(private messageServiceObj: MessageService){}
+    mostrarElemento: boolean = true;
+
+    ngOnInit(){
+        if (this.messageVarClasse.userID!=sessionStorage.getItem('id')){
+            this.mostrarElemento=false;
+        }
+    }
     
     onDeleteService(){
-        this.messageServiceObj.deleteMessage(this.messageVarClasse)
-        .subscribe(
-                dadosSucesso => console.log(dadosSucesso),
-                dadosErro => console.log(dadosErro)
+        if(this.messageVarClasse.userID!=sessionStorage.getItem('id')){
+            alert('Você não pode deletar a mensagem de outro usuário');
+        }
+        else{
+            this.messageServiceObj.deleteMessage(this.messageVarClasse)
+            .subscribe(
+                    dadosSucesso => console.log(dadosSucesso),
+                    dadosErro => console.log(dadosErro)
             );
+        }
     }
 
     color = 'yellow';
@@ -41,7 +53,10 @@ export class MessageComponent{
     //@Input('inputMessage') messageVarClasseAlias : Message = new Message("", "");
 
     onEditService(){
-        this.messageServiceObj.editMessage(this.messageVarClasse);
+        if(this.messageVarClasse.userID!=sessionStorage.getItem('id'))
+            alert('Você não pode editar a mensagem de outro usuário');
+        else 
+            this.messageServiceObj.editMessage(this.messageVarClasse);
     }
 
     @Output() editClicked_MessageMetodoClasse = new EventEmitter<string>();

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
     selector: 'app-authentication',
@@ -6,9 +6,9 @@ import { Component } from "@angular/core";
                <header class="row spacing">
                     <nav class="col-md-8 col-md-offset-2">
                         <ul class="nav nav-tabs">
-                            <li routerLinkActive="active"><a [routerLink]="['signup']">Signup</a></li>
-                            <li routerLinkActive="active"><a [routerLink]="['signin']">Signin</a></li>
-                            <li routerLinkActive="active"><a [routerLink]="['logout']">Logout</a></li>
+                            <li *ngIf="!mostrarElemento" routerLinkActive="active"><a [routerLink]="['signup']">Signup</a></li>
+                            <li *ngIf="!mostrarElemento" routerLinkActive="active"><a [routerLink]="['signin']">Signin</a></li>
+                            <li *ngIf="mostrarElemento" routerLinkActive="active"><a [routerLink]="['logout']">Logout</a></li>
                         </ul>
                     </nav>
                 </header>
@@ -18,6 +18,12 @@ import { Component } from "@angular/core";
     `
 })
 
-export class AuthenticationComponent{
+export class AuthenticationComponent implements OnInit{
+    mostrarElemento: boolean = true;
+    ngOnInit(){
+        if(sessionStorage.getItem('id')==null){
+            this.mostrarElemento=false;
+        }
+    }
     
 }

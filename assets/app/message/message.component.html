@@ -10,7 +10,7 @@
         <div class="author">
             {{ messageVarClasse.username}}
         </div>
-        <div class="config">
+        <div *ngIf="mostrarElemento" class="config">
             <a (click)="onEditService()">Edit</a>
             <a (click)="onDeleteService()">Delete</a>
         </div>
