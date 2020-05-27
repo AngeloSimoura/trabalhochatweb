@@ -12,11 +12,13 @@ router.post('/',function (req,res,next){
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        cor: req.body.cor,
+        font: req.body.font
     });
     user.save(function (err, result){
         if(err){
-            console.log('500');
+            //console.log('500');
             return res.status(500).json({
                 myErroTitle: 'Um erro aconteceu na hora de salvar o usuário',
                 myError : err
@@ -30,13 +32,13 @@ router.post('/',function (req,res,next){
 });
 
 router.post('/login',function (req,res,next){
-    console.log("novo qualquer coisa");
-    console.log(req.body.emailT);
+    //console.log("novo qualquer coisa");
+    //console.log(req.body.emailT);
     var emailR = req.body.emailT;
-    console.log(emailR);
+    //console.log(emailR);
 
     User.findOne({email: emailR},function(err,documents){
-        console.log(documents);
+        //console.log(documents);
         if(err){
             return res.status(500).json({
                 myErroTitle: 'Um erro aconteceu na hora de buscar o usuário',
@@ -45,12 +47,11 @@ router.post('/login',function (req,res,next){
         }
         if(!documents){
             return res.status(500).json({
-                myErroTitle: 'Não encontrou o usuário',
-                myError : {info: 'Não encontrou o usuário com o email' +emailR }
+                myErroTitle: 'Usuário não existente',
+                myError : {info: 'Não encontrou o usuário com o email ' +emailR }
             });
         }
         var passwordT = documents.password;
-        console.log(passwordT);
         if(passwordT != req.body.passwordT){
             return res.status(500).json({
                 myErroTitle: 'Senha incorreta',
@@ -58,7 +59,7 @@ router.post('/login',function (req,res,next){
             });
         }
         else{
-            console.log('Senha correta!');
+            //console.log('Senha correta!');
             res.status(200).json({
                 myMsgSucess: "Usuário recuperado com sucesso",
                 usuarioRecuperado: documents

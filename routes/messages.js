@@ -23,7 +23,7 @@ router.get('/',function (req,res,next){
 
 router.post('/',function (req,res,next){
     var userID = req.body.userID;
-    console.log(userID);
+    //console.log(userID);
     let message = new Message({
         content: req.body.content,
         user: userID

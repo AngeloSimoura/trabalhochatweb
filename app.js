@@ -23,9 +23,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/node-angular', { useUnifiedTopology:
 mongoose.set('useCreateIndex', true);
 
 
-//mongoose.connect('mongodb+srv://angelosimoura:angeloMongo@cluster0-gxzky.mongodb.net/test?retryWrites=true&w=majority');
-
-
 mongoose.connection.on('error', err => {
     logError(err);
   });

@@ -15,8 +15,53 @@
         </div>
         <div class="form-group">
             <label for="password">Senha:</label>
-            <input type="text" id="password" class="form-control" formControlName="passwordTS">
+            <input type="password" id="password" class="form-control" formControlName="passwordTS">
         </div>
-        <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Cadastrar</button>
+        <p><label class="description" for="element_1">Qual cor prefere para aparecer em suas mensagens? </label></p>
+        <div class="col-md-8 col-md-offset-4">
+            
+        <div class="form-check form-check-inline">
+            <div class="form-group">
+                <input class="form-check-input" type="radio" id="red" value="red" formControlName="corTS">
+                <label class="form-check-label" for="red">Vermelho</label>
+            </div>
+          </div>
+          <div class="form-check form-check-inline">
+            <div class="form-group">
+                <input class="form-check-input" type="radio" id="blue" value="blue" formControlName="corTS">
+                <label class="form-check-label" for="blue">Azul</label>
+            </div>
+          </div>
+          <div class="form-check form-check-inline">
+            <div class="form-group">
+                <input class="form-check-input" type="radio" id="green" value="green" formControlName="corTS">
+                <label class="form-check-label" for="green">Verde</label>
+            </div>
+          </div>
+        </div>
+      <br>
+      <div class="form-group">  
+      <div>Qual a sua idade: <input type="text" [(ngModel)] = 'age' id="age" formControlName="ageTS"> </div>
+      <div *ngIf="age >= 18; then firstThenBlock else firstElseBlock"></div>
+                <ng-template #firstThenBlock>
+                    <div> <b>Você pode entrar em chats com conteúdo para maiores de 18 anos.</b></div>
+                </ng-template>
+                <ng-template #firstElseBlock>
+                    <div> <b>Não pode entrar em chats com conteúdo para maiores de 18 anos</b></div>
+                </ng-template>
+        </div>
+        <div class="form-group">
+                <br>
+                <br>
+                <label for="fonte">Qual tamanho de fonte você prefere?</label>
+
+                <select name="font" id="font" formControlName="fontTS">
+                    <option value="11" style="font-size: 11px;">11px</option>
+                    <option value="14" style="font-size: 14px;">14px</option>
+                    <option value="18" style="font-size: 18x;">18px</option>
+                    <option value="20" style="font-size: 20px;">20px</option>
+                  </select>
+        </div>
+        <p><button style="margin-top: 4%;" class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Cadastrar</button></p>
     </form>
 </div>

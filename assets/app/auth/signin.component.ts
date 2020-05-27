@@ -19,27 +19,32 @@ export class SigninComponent{
     hide: true;
 
     onSubmit(){        
-        console.log(this.myForm);     
+       // console.log(this.myForm);     
         this.userService.getUser(this.myForm.value.emailTS, this.myForm.value.passwordTS)
             .subscribe(
                 (dadosSucesso: User) => {
-                    console.log(dadosSucesso);
+                    //console.log(dadosSucesso);
                     sessionStorage.setItem('id',dadosSucesso.userID);
                     sessionStorage.setItem('username',dadosSucesso.firstName+dadosSucesso.lastName);
+                    sessionStorage.setItem('color',dadosSucesso.cor);
+                    sessionStorage.setItem('font',dadosSucesso.font);
+                    this.verificador=true;
                     this.verificaLogin(this.verificador);
                 },
-                dadosErro =>{ console.log(dadosErro),this.verificador=false,console.log(this.verificador),this.verificaLogin(this.verificador)}
+                dadosErro =>{ alert(dadosErro.myErroTitle),
+                   // console.log(dadosErro),
+                    this.verificador=false,
+                    //console.log(this.verificador),
+                    this.verificaLogin(this.verificador)}
             );
     }
 
     verificaLogin(verificador: boolean){
         if(verificador){
-            console.log('Entrei no IF');
+            //console.log('Entrei no IF');
             this.myForm.reset();        
             this.router.navigate(['/mensagens']);
         }
-        else
-            alert("Email e/ou senha incorretos");
     }
 
     ngOnInit(){

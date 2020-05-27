@@ -23,10 +23,18 @@ import { MessageService } from "./message.services";
 export class MessageComponent implements OnInit{
     constructor(private messageServiceObj: MessageService){}
     mostrarElemento: boolean = true;
+    color: String;
+    tam: String;
 
     ngOnInit(){
         if (this.messageVarClasse.userID!=sessionStorage.getItem('id')){
             this.mostrarElemento=false;
+            this.color='yellow';
+            this.tam = '12';
+        }
+        else{
+            this.color=sessionStorage.getItem('color');
+            this.tam = sessionStorage.getItem('font');
         }
     }
     
@@ -41,13 +49,6 @@ export class MessageComponent implements OnInit{
                     dadosErro => console.log(dadosErro)
             );
         }
-    }
-
-    color = 'yellow';
-    tam=12;
-    onMudaStyle(){
-        this.color = 'red';
-        this.tam=16;    
     }
     @Input() messageVarClasse : Message = new Message("", "");
     //@Input('inputMessage') messageVarClasseAlias : Message = new Message("", "");

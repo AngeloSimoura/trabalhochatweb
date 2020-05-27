@@ -29,7 +29,7 @@ export class MessageListComponent implements OnInit{
             .subscribe(
                 (dadosSucesso: Message[]) => {
                     this.messageS = dadosSucesso;
-                    console.log(dadosSucesso)
+                    //console.log(dadosSucesso)
                 },
                 dadosErro => console.log(dadosErro)
             );

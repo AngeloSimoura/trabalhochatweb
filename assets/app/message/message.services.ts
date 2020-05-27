@@ -14,8 +14,8 @@ export class MessageService {
     
     addMessage(message: Message){
         //this.messageSService.push(message);
-        console.log(this.messageSService);    
-        console.log(message.userID);    
+        //console.log(this.messageSService);    
+        //console.log(message.userID);    
         const bodyReq = JSON.stringify(message);
         const myHeaders = new Headers({'Content-Type': 'application/json'});
         return this.http.post('http://localhost:3000/message',bodyReq, {headers: myHeaders})
@@ -35,7 +35,7 @@ export class MessageService {
             .map((responseRecebida: Response)=>{
                 const responseEmJSON = responseRecebida.json();
                 const messageSResponseRecebida = responseEmJSON.objSMessageSRecuperadoS;
-                console.log(messageSResponseRecebida);
+                //console.log(messageSResponseRecebida);
                 let transformedCastMessagesModelFrontEnd: Message[] = [];
                 for (let i = messageSResponseRecebida.length - 1; i >=0 ; i--) {
                     transformedCastMessagesModelFrontEnd.push(

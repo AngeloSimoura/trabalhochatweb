@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { UserService } from "./user.services";
 import { User } from './user.model';
 import {Router} from "@angular/router"
@@ -19,15 +19,18 @@ export class SignupComponent implements OnInit{
     verificador: boolean = true;
 
     onSubmit(){
-        console.log(this.myForm);
-        const userAux = new User(this.myForm.value.emailTS,this.myForm.value.passwordTS,this.myForm.value.firstNameTS,this.myForm.value.lastNameTS);
-        console.log(userAux);
+        //console.log(this.myForm.value);
+        const userAux = new User(this.myForm.value.emailTS,this.myForm.value.passwordTS,this.myForm.value.firstNameTS,this.myForm.value.lastNameTS,null,this.myForm.value.corTS,this.myForm.value.fontTS);
+        //console.log(userAux);
         this.userService.addUser(userAux)
         .subscribe(
-            dadosSucesso => {console.log(dadosSucesso.objUserSave),this.verificaSignup(this.verificador)
+            dadosSucesso => {this.verificaSignup(this.verificador)
                 sessionStorage.setItem('id',dadosSucesso.objUserSave._id),
-                sessionStorage.setItem('username',dadosSucesso.objUserSave.firstName+dadosSucesso.objUserSave.lastName)},
-            dadosErro => {console.log(dadosErro),this.verificador=false,this.verificaSignup(this.verificador)}
+                sessionStorage.setItem('username',dadosSucesso.objUserSave.firstName+dadosSucesso.objUserSave.lastName),
+                sessionStorage.setItem('color',dadosSucesso.objUserSave.cor),
+                sessionStorage.setItem('font',dadosSucesso.objUserSave.font)
+                this.verificador=true},
+            dadosErro => {this.verificador=false,this.verificaSignup(this.verificador)}
         );
     }
 
@@ -49,7 +52,10 @@ export class SignupComponent implements OnInit{
                 Validators.required,
                 Validators.pattern("[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+")
             ]),
-            passwordTS: new FormControl(null, Validators.required)
+            passwordTS: new FormControl(null, Validators.required),
+            corTS: new FormControl(null,Validators.required),
+            ageTS: new FormControl(null,Validators.required),
+            fontTS: new FormControl(null,Validators.required)
         }); 
     }  
 }

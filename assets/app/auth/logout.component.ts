@@ -17,6 +17,8 @@ export class LogoutComponent{
     onLogout(){
         sessionStorage.removeItem('id');
         sessionStorage.removeItem('username');
+        sessionStorage.removeItem('color');
+        sessionStorage.removeItem('font');
         this.router.navigate(['/mensagens']);
     }
 }

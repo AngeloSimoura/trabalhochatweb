@@ -16,9 +16,9 @@ export class MessageInputComponent implements OnInit{
 
     onSave(textoConsole: string){
         const messageAux = new Message(textoConsole,sessionStorage.getItem('username'),null,sessionStorage.getItem('id'));
-        console.log(messageAux.userID);
+        //console.log(messageAux.userID);
         this.messageService.addMessage(messageAux);
-        console.log(textoConsole);
+        //console.log(textoConsole);
     }
 
     onSubmit(form: NgForm){
@@ -28,21 +28,15 @@ export class MessageInputComponent implements OnInit{
             if(this.messageLoad){
                 this.messageLoad.content = form.value.myContentngForm;
                 this.messageService.updateMessage(this.messageLoad)
-                    .subscribe(
-                        dadosSucesso => console.log(dadosSucesso),
-                        dadosErro => console.log(dadosErro)
-                    );
+                    .subscribe();
                 this.messageLoad=null;
             }
             else{
 
                 const messageAux = new Message(form.value.myContentngForm,sessionStorage.getItem('username'),null,sessionStorage.getItem('id'));
                 this.messageService.addMessage(messageAux)
-                    .subscribe(
-                        dadosSucesso => console.log(dadosSucesso),
-                        dadosErro => console.log(dadosErro)
-                    );
-                console.log(form);
+                    .subscribe();
+                //console.log(form);*/
                 form.resetForm();
             }
         }
