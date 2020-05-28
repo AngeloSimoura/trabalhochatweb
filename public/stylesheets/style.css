@@ -25,3 +25,19 @@ a.danger {
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+
+#rodape{
+  background-color: #0000CD;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-family: arial;
+  text-shadow: 2px 2px 2px #000;
+}
+#Topo{
+  background-color: #0000CD;
+       text-align: center;
+       width: 100%;
+      height: 300px;
+}

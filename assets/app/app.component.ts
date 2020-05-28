@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Message } from './message/message.model';
 import { MessageService } from './message/message.services';
 
@@ -7,9 +7,10 @@ import { MessageService } from './message/message.services';
     templateUrl: './app.component.html',
     providers: [MessageService]
 })
-export class AppComponent {
+export class AppComponent{
     nomeNgSwitch: string ="";
     valorNgSwitch: number;
+    username: String;
 
     mostrarElemento: boolean = true;
     onMudaMostrarElemento(){
@@ -34,4 +35,5 @@ export class AppComponent {
     conteudo1VarClassComponent = 'Conteudo da variavel';
     conteudo2VarClassComponent = 123;
     conteudo3VarClassComponent = 123.45;
+
 }
